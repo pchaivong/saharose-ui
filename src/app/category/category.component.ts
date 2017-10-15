@@ -15,7 +15,7 @@ import { CategoryService, CategoryData } from '../services/category.service';
 export class CategoryComponent implements OnInit {
 
   displayedColumns = ['name', 'numItems', 'actions'];
-  private dataSource;
+  public dataSource;
 
   constructor(private categoryService: CategoryService, public dialog: MdDialog) {
     this.dataSource = new CategoryDataSource(categoryService);

@@ -13,7 +13,7 @@ import { IngredientService, IngredientData } from '../services/ingredient.servic
 export class IngredientComponent implements OnInit {
 
   displayedColumns = ['name', 'catName', 'actions'];
-  private dataSource;
+  public dataSource;
   selectedValue: string;
   categories = [
     {id: 1, name: 'Food'},

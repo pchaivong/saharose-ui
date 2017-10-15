@@ -9,7 +9,7 @@ import { MenuService, MenuData } from '../services/menu.service';
 export class MenuComponent implements OnInit {
 
   displayedColumns = ['name', 'category', 'price', 'actions'];
-  private dataSource;
+  public dataSource;
 
   constructor(private menuService: MenuService) { 
     this.dataSource = menuService.dataSource;
