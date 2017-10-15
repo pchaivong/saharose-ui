@@ -1,5 +1,13 @@
 <div class="container">
-  <app-menu></app-menu>
-  <app-category></app-category>
-  <app-ingredient></app-ingredient>
+  <md-tab-group class="config-tab-group">
+    <md-tab label="Category">
+      <app-category></app-category>
+    </md-tab>
+    <md-tab label="Ingredient">
+      <app-ingredient></app-ingredient>
+    </md-tab>
+    <md-tab label="Menu">
+      <app-menu></app-menu>
+    </md-tab>
+  </md-tab-group>
 </div>

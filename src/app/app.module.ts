@@ -18,6 +18,7 @@ import { MdToolbarModule,
          MatFormFieldModule,
          MatSelectModule,
          MatSlideToggleModule,
+         MatTabsModule,
                           } from '@angular/material';
 import { CookViewComponent } from './cook-view/cook-view.component';
 import { CategoryComponent } from './category/category.component';
@@ -61,6 +62,7 @@ import { CreateOrderDetailComponent } from './order/create-order-detail/create-o
     MatSelectModule,
     MatFormFieldModule,
     MatSlideToggleModule,
+    MatTabsModule,
 
     RouterModule.forRoot([
       {

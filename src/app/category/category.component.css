@@ -6,3 +6,12 @@
 md-card {
     margin: 15px;
 }
+
+md-header-row {
+    background-color: #3F51B5;
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.6);
+}
+
+md-header-cell {
+    color: #E8EAF6;
+}
