@@ -26,10 +26,13 @@ import { CategoryComponent } from './category/category.component';
 // Services
 import { CategoryService } from './services/category.service';
 import { IngredientService } from './services/ingredient.service';
+import { MenuService } from './services/menu.service';
 
 import { DialogEditCategory } from './category/category.component';
 import { IngredientComponent } from './ingredient/ingredient.component';
 import { MenuComponent } from './menu/menu.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { CreateOrderDetailComponent } from './order/create-order-detail/create-order-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,9 @@ import { MenuComponent } from './menu/menu.component';
     CategoryComponent,
     DialogEditCategory,
     IngredientComponent,
-    MenuComponent
+    MenuComponent,
+    ConfigurationComponent,
+    CreateOrderDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -65,12 +70,21 @@ import { MenuComponent } from './menu/menu.component';
       {
         path: 'ingredients',
         component: IngredientComponent
+      },
+      {
+        path: 'menus',
+        component: MenuComponent
+      },
+      {
+        path: 'configuration',
+        component: ConfigurationComponent
       }
     ]),
   ],
   providers: [
     CategoryService,
     IngredientService,
+    MenuService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogEditCategory]

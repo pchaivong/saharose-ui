@@ -1,3 +1,42 @@
-<p>
-  menu works!
-</p>
+<div class="container">
+  <md-card class="flex-item menu-card">
+      <md-card-title>Menu</md-card-title>
+      <md-card-content>
+          <div class="mat-elevation-z8">
+              <md-table #table [(dataSource)]="dataSource">
+            
+                <!-- Column: Category Name column -->
+                <ng-container mdColumnDef="name">
+                  <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+                  <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+                </ng-container>
+            
+                <!-- Column: Number of items in category -->
+                <ng-container mdColumnDef="category">
+                  <md-header-cell *mdHeaderCellDef>Category</md-header-cell>
+                  <md-cell *mdCellDef="let row"> {{row.categoryId}}</md-cell>
+                </ng-container>
+                <ng-container mdColumnDef="price">
+                  <md-header-cell *mdHeaderCellDef>Price </md-header-cell>
+                  <md-cell *mdCellDef="let row"> {{row.price}}</md-cell>
+                </ng-container>
+                <ng-container mdColumnDef="actions">
+                  <md-header-cell *mdHeaderCellDef>Actions</md-header-cell>
+                  <md-cell *mdCellDef="let row"> some action icons </md-cell>
+                </ng-container>
+            
+                <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+                <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+              </md-table>
+
+            </div>
+      </md-card-content>
+      <md-card-actions align="end">
+          <button md-fab md-raised-button color="warn" type="submit" (click)="addMenu()">
+              <md-icon>add</md-icon>
+          </button> 
+      </md-card-actions>
+  </md-card>
+</div>
+  
+  
