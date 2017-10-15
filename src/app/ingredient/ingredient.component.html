@@ -1,0 +1,76 @@
+<md-card class="mat-elevation-z8">
+    <md-card-title>Ingredients</md-card-title>
+  
+  
+    <md-card-content>
+        <div class="mat-elevation-z8">
+            <md-table #table [(dataSource)]="dataSource">
+          
+              <!-- Column: Category Name column -->
+              <ng-container mdColumnDef="name">
+                <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+                <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+              </ng-container>
+          
+              <!-- Column: Number of items in category -->
+              <ng-container mdColumnDef="catName">
+                <md-header-cell *mdHeaderCellDef>Category </md-header-cell>
+                <md-cell *mdCellDef="let row"> {{row.catName}}</md-cell>
+              </ng-container>
+  
+              <!-- Column: Actions -->
+              <ng-container mdColumnDef="actions">
+                  <md-header-cell *mdHeaderCellDef>Actions </md-header-cell>
+                  <md-cell *mdCellDef="let row">
+                    <button md-icon-button (click)="openDialog(row)">
+                        <md-icon>create</md-icon>
+                    </button>
+                    <button md-icon-button>
+                        <md-icon>delete</md-icon>
+                    </button>
+                  </md-cell>
+                </ng-container>
+          
+              <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+              <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+            </md-table>
+            
+          </div>
+    </md-card-content>
+  
+  
+    <md-card-footer>
+      <md-expansion-panel>
+        <md-expansion-panel-header>
+          <md-panel-title>
+              Add New
+          </md-panel-title>
+        </md-expansion-panel-header>
+        <md-form-field>
+            <input #ingName mdInput placeholder="Ingredient name">
+        </md-form-field>
+        <md-form-field>
+            <input #price mdInput placeholder="Price">
+        </md-form-field>
+
+        <section>
+          <md-select placeholder="Category" [(ngModel)]="selectedValue" name="category">
+            <md-option *ngFor="let cat of categories" [value]="cat.id">
+              {{cat.name}}
+            </md-option>
+          </md-select>
+          <md-slide-toggle color="primary">
+            Enable AddOn
+          </md-slide-toggle>
+
+          <button md-fab md-raised-button color="warn" type="submit" (click)="add(ingName.value, price.value)">
+              <md-icon>add</md-icon>
+          </button>
+        </section>
+
+
+      </md-expansion-panel>
+    </md-card-footer>
+  </md-card>
+  
+  

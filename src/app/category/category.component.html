@@ -1,0 +1,58 @@
+<md-card class="mat-elevation-z8">
+  <md-card-title>Category</md-card-title>
+
+
+  <md-card-content>
+      <div class="mat-elevation-z8">
+          <md-table #table [(dataSource)]="dataSource">
+        
+            <!-- Column: Category Name column -->
+            <ng-container mdColumnDef="name">
+              <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+              <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+            </ng-container>
+        
+            <!-- Column: Number of items in category -->
+            <ng-container mdColumnDef="numItems">
+              <md-header-cell *mdHeaderCellDef># items </md-header-cell>
+              <md-cell *mdCellDef="let row"> {{row.numItems}}</md-cell>
+            </ng-container>
+
+            <!-- Column: Actions -->
+            <ng-container mdColumnDef="actions">
+                <md-header-cell *mdHeaderCellDef>Actions </md-header-cell>
+                <md-cell *mdCellDef="let row">
+                  <button md-icon-button (click)="openDialog(row)">
+                      <md-icon>create</md-icon>
+                  </button>
+                  <button md-icon-button (click)="remove(row)">
+                      <md-icon>delete</md-icon>
+                  </button>
+                </md-cell>
+              </ng-container>
+        
+            <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+            <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+          </md-table>
+          
+        </div>
+  </md-card-content>
+
+
+  <md-card-footer>
+    <md-expansion-panel>
+      <md-expansion-panel-header>
+        <md-panel-title>
+            Add New
+        </md-panel-title>
+      </md-expansion-panel-header>
+      <md-form-field>
+        <input #newCat mdInput placeholder="Category name">
+      </md-form-field>
+      <button md-fab md-raised-button color="warn" type="submit" (click)="testAdd(newCat.value)">
+        <md-icon>add</md-icon>
+      </button>
+    </md-expansion-panel>
+  </md-card-footer>
+</md-card>
+

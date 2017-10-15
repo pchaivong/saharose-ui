@@ -1,0 +1,11 @@
+<h2 md-dialog-title>Edit Category name</h2>
+<md-dialog-content>
+  <md-form-field>
+    <input [(ngModel)]="data.name" mdInput placeholder="Enter new category name" autofocus >
+  </md-form-field>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>Cancel</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-button (click)="confirmNewName()">Update</button>
+</md-dialog-actions>
