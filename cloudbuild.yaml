@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+
+- name: 'gcr.io/cloud-builder/npm'
+  args: ['build', '--prod']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/saharose-ui:0.0.1-dev', '.']
+images: ['gcr.io/$PROJECT_ID/saharose-ui:0.0.1-dev']
