@@ -1,3 +1,27 @@
-<p>
-  create-order works!
-</p>
+<div class="table-info">
+  <md-card>
+    <md-card-title>
+      Table Infomation <span><md-chip>{{getSelectedTable()}}</md-chip></span>
+    </md-card-title>
+
+    <md-card-content>
+      <div>
+        <span>โซน</span>
+        <md-button-toggle-group [(ngModel)]="selectedZone" selected color="primary">
+          <md-button-toggle *ngFor="let zone of zones" [value]="zone">{{zone}}</md-button-toggle>
+        </md-button-toggle-group>
+      </div>
+
+      <div>
+        <span>หมายเลข</span>
+        <md-button-toggle-group [(ngModel)]="selectedTableLabel" selected color="primary">
+          <md-button-toggle *ngFor="let label of tableLabels" [value]="label">{{label}}</md-button-toggle>
+        </md-button-toggle-group>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-tab-group class="order-category">
+    <md-tab *ngFor="let cat of categories" label="{{cat}}">{{cat}}</md-tab>
+  </md-tab-group>
+</div>

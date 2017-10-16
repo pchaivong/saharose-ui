@@ -19,6 +19,7 @@ import { MdToolbarModule,
          MatSelectModule,
          MatSlideToggleModule,
          MatTabsModule,
+         MatButtonToggleModule,
                           } from '@angular/material';
 import { CookViewComponent } from './cook-view/cook-view.component';
 import { CategoryComponent } from './category/category.component';
@@ -65,11 +66,12 @@ import { CreateOrderComponent } from './order/create-order/create-order.componen
     MatFormFieldModule,
     MatSlideToggleModule,
     MatTabsModule,
+    MatButtonToggleModule,
 
     RouterModule.forRoot([
       {
-        path: 'categories',
-        component: CategoryComponent
+        path: 'order',
+        component: CreateOrderComponent
       },
       {
         path: 'ingredients',
