@@ -1,13 +1,14 @@
 <md-toolbar layout="column" class="mat-elevation-z5" color="primary">
-  <div flex="15" layout layout-align="center center">
-    <span>Logo</span>
-  </div>
   <div>
-    <a routerLink="/order">Order</a>
-    <a routerLink="/configuration">Configuration</a>
+      <button md-icon-button aria-label="Open Menu" (click)="sidenav.toggle()" >
+          <md-icon>menu</md-icon>
+      </button>
   </div>
   <div flex="85" style="flex: 1 1 auto;">
-    <span text-align="right" style="float:right;">Username</span>
+    <div style="float:right;">
+      <md-icon>face</md-icon>
+    </div>
   </div>
 </md-toolbar>
+<app-sidenav #sidenav></app-sidenav>
 

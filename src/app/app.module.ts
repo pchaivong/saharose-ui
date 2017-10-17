@@ -20,6 +20,8 @@ import { MdToolbarModule,
          MatSlideToggleModule,
          MatTabsModule,
          MatButtonToggleModule,
+         MatSidenavModule,
+         MatListModule,
                           } from '@angular/material';
 import { CookViewComponent } from './cook-view/cook-view.component';
 import { CategoryComponent } from './category/category.component';
@@ -36,6 +38,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { CreateOrderDetailComponent } from './order/create-order-detail/create-order-detail.component';
 import { CreateOrderComponent } from './order/create-order/create-order.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { CreateOrderComponent } from './order/create-order/create-order.componen
     MenuComponent,
     ConfigurationComponent,
     CreateOrderDetailComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +71,8 @@ import { CreateOrderComponent } from './order/create-order/create-order.componen
     MatSlideToggleModule,
     MatTabsModule,
     MatButtonToggleModule,
+    MatSidenavModule,
+    MatListModule,
 
     RouterModule.forRoot([
       {

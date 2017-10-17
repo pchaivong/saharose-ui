@@ -1,0 +1,14 @@
+<md-sidenav-container flex>
+  <md-sidenav #nav opened mode="side" class="side-bar">
+    <md-nav-list>
+      <md-list-item *ngFor="let menu of menus" (click)="selectRoute(menu.path)">
+        <md-icon>{{menu.icon}}</md-icon>
+        <div class="menu-label">{{menu.label}}</div>
+      </md-list-item>
+    </md-nav-list>
+  </md-sidenav>
+  <div flex class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>
+

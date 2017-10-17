@@ -1,0 +1,9 @@
+.menu-button {
+    background-color: inherit;
+    border: 0;
+}
+
+.menu-button i {
+    color: white;
+    background-color: inherit;
+}

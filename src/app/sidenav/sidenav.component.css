@@ -1,0 +1,23 @@
+mat-sidenav {
+    width: 100vx;
+    max-width: 300px;
+    position: relative;
+}
+
+.side-bar {
+    background-color: white;
+    box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.6);
+    height: 600px;
+}
+
+md-list-item {
+    width: 200px;
+}
+
+.menu-label {
+    margin: 20px;
+}
+
+.main-content {
+    margin-left: 50px;
+}
