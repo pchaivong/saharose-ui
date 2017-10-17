@@ -17,6 +17,7 @@ export class SidenavComponent implements OnInit{
     { path: '/configuration', label: 'Configuration', icon: 'build'},
   ];
 
+  
   @ViewChild('nav') nav: MdSidenav;
 
   constructor(private router: Router) { }
