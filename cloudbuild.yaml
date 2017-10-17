@@ -6,5 +6,5 @@ steps:
   args: ['build', '--prod']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/saharose-ui:0.0.1-dev', '.']
-images: ['gcr.io/$PROJECT_ID/saharose-ui:0.0.1-dev']
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/saharose-ui:0.0.4-dev', '.']
+images: ['gcr.io/$PROJECT_ID/saharose-ui:0.0.4-dev']
