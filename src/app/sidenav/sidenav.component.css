@@ -2,10 +2,7 @@
 .side-bar {
     background-color: white;
     box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.6);
-    height: 600px;
-    width: 100vx;
-    max-width: 300px;
-    position: relative;
+    width: 200px;
 }
 
 md-list-item {
@@ -18,5 +15,6 @@ md-list-item {
 
 .main-content {
     margin-left: 50px;
+    height: 600px;
 }
 
