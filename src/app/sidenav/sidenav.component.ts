@@ -12,9 +12,9 @@ export class SidenavComponent implements OnInit{
   // Add more menu here.
   menus = [
     { path: '/order', label: 'Order', icon: 'local_dining'},
-    { path: '/configuration', label: 'Configuration', icon: 'build'},
     { path: '/cooking', label: 'Cooking', icon: 'whatshot'},
     { path: '/report', label: 'Report', icon: 'trending_up'},
+    { path: '/configuration', label: 'Configuration', icon: 'build'},
   ];
 
   @ViewChild('nav') nav: MdSidenav;
