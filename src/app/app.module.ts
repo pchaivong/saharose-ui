@@ -20,7 +20,7 @@ import { MdToolbarModule,
          MatSlideToggleModule,
          MatTabsModule,
          MatButtonToggleModule,
-         MatSidenavModule,
+         MdSidenavModule,
          MatListModule,
                           } from '@angular/material';
 import { CookViewComponent } from './cook-view/cook-view.component';
@@ -71,7 +71,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatSlideToggleModule,
     MatTabsModule,
     MatButtonToggleModule,
-    MatSidenavModule,
+    MdSidenavModule,
     MatListModule,
 
     RouterModule.forRoot([

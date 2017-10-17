@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdSidenav } from '@angular/material';
 
@@ -7,7 +7,7 @@ import { MdSidenav } from '@angular/material';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit, AfterViewInit{
+export class SidenavComponent implements OnInit{
 
   // Add more menu here.
   menus = [
@@ -20,10 +20,6 @@ export class SidenavComponent implements OnInit, AfterViewInit{
   @ViewChild('nav') nav: MdSidenav;
 
   constructor(private router: Router) { }
-
-  ngAfterViewInit(){
-   // this.nav.toggle();
-  }
 
   ngOnInit() {
   }

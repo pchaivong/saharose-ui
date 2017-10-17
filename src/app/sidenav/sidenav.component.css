@@ -1,17 +1,15 @@
-mat-sidenav {
-    width: 100vx;
-    max-width: 300px;
-    position: relative;
-}
 
 .side-bar {
     background-color: white;
     box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.6);
     height: 600px;
+    width: 100vx;
+    max-width: 300px;
+    position: relative;
 }
 
 md-list-item {
-    width: 200px;
+    width: 100%;
 }
 
 .menu-label {
