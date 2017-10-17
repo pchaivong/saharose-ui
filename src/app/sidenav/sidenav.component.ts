@@ -31,5 +31,6 @@ export class SidenavComponent implements OnInit{
   public toggle() {
     this.nav.toggle();
   }
+  
 
 }
