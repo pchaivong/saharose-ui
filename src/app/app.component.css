@@ -1,4 +1,9 @@
-app-sidenav {
-    padding-bottom: 100%;
-    height: 100%;
+.main-app {
+    margin-bottom: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
+app-tool-bar {
+    height: 100vh;
 }

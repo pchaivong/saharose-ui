@@ -7,3 +7,7 @@
     color: white;
     background-color: inherit;
 }
+
+app-sidenav {
+    height: 100%;
+}

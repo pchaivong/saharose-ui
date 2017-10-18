@@ -25,7 +25,8 @@
 <md-tab-group class="order-category">
   <md-tab *ngFor="let cat of categories" label="{{cat.name}}">
     <div class="menu-container">
-      <button md-button color="primay" *ngFor="let menu of this.menuService.getMenuByCategory(cat.id)" class="menu-card">
+      <button md-button color="primay" *ngFor="let menu of this.menuService.getMenuByCategory(cat.id)"
+        class="menu-card" (click)="openAddOrderDetailDialog(menu)">
         <md-card>
           <md-card-title>{{menu.name}}</md-card-title>
           <md-card-subtitle>

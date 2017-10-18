@@ -1,0 +1,21 @@
+/* Order detail dialog */
+.order-detail-form {
+    margin: 0px;
+    width: 50vh;
+}
+.topping-toggle, .topping-group, .mat-slide-toggle {
+    margin: 10px;
+}
+.take-away-section {
+    margin-top: 30px;
+    border-top: 1px;
+}
+
+.amount-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+}
+.amount-button {
+    margin: 10px;
+}

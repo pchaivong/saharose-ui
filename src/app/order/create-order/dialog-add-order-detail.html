@@ -1,0 +1,37 @@
+<md-card class="order-detail-form" class="mat-elevation-z1">
+    <md-card-title>{{this.data.name}}</md-card-title>
+    <md-card-content>
+        <section>
+            <h3>ส่วนประกอบ</h3>
+            <div class="topping-group">
+                <md-slide-toggle checked="true" class="topping-toggle" color="primary" *ngFor="let topping of this.toppings">{{topping}}</md-slide-toggle>
+            </div>
+        </section>
+        <section>
+            <h3>เพิ่มพิเศษ</h3>
+            <div class="topping-group">
+                <md-slide-toggle class="topping-toggle" color="primary" *ngFor="let topping of this.toppings">{{topping}}</md-slide-toggle>
+            </div>
+        </section>
+        <br/>
+        <section class="tack-away-section">
+            <md-slide-toggle color="primary">สั่งกลับบ้าน</md-slide-toggle>
+        </section>
+        <section class="amount-section">
+            <div class="amount-container">
+                <h3>จำนวน</h3>
+                <button #decBtn md-mini-fab color="warn" (click)="decAmount()" class="amount-button">
+                    <md-icon>remove</md-icon>
+                </button>
+                <h1>{{amount}}</h1>
+                <button md-mini-fab color="warn" (click)="incAmount()" class="amount-button">
+                    <md-icon>add</md-icon>
+                </button>
+            </div>
+        </section>
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button color="primary" (click)="placeOrder()">เพิ่มรายการ</button>
+        <button md-raised-button color="primary" (click)="cancelOrder()">ยกเลิก</button>
+    </md-card-actions>
+</md-card>

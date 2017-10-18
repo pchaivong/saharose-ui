@@ -34,6 +34,7 @@ import { IngredientService } from './services/ingredient.service';
 import { MenuService } from './services/menu.service';
 
 import { DialogEditCategory } from './category/category.component';
+import { DialogAddOrderDetail } from './order/create-order/create-order.component';
 import { IngredientComponent } from './ingredient/ingredient.component';
 import { MenuComponent } from './menu/menu.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -53,7 +54,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     ConfigurationComponent,
     CreateOrderDetailComponent,
     CreateOrderComponent,
-    SidenavComponent
+    SidenavComponent,
+    DialogAddOrderDetail,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +103,6 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MenuService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogEditCategory]
+  entryComponents: [DialogEditCategory, DialogAddOrderDetail]
 })
 export class AppModule { }
