@@ -1,7 +1,7 @@
 <div class="table-info">
-  <md-card>
+  <md-card class="table-card">
     <md-card-title>
-      Table Infomation <span><md-chip>{{getSelectedTable()}}</md-chip></span>
+      ข้อมูลโต๊ะ <span><md-chip>{{getSelectedTable()}}</md-chip></span>
     </md-card-title>
 
     <md-card-content>
@@ -20,8 +20,42 @@
       </div>
     </md-card-content>
   </md-card>
-
-  <md-tab-group class="order-category">
-    <md-tab *ngFor="let cat of categories" label="{{cat}}">{{cat}}</md-tab>
-  </md-tab-group>
 </div>
+
+<md-tab-group class="order-category">
+  <md-tab *ngFor="let cat of categories" label="{{cat.name}}">
+    <div class="menu-container">
+      <button md-button color="primay" *ngFor="let menu of this.menuService.getMenuByCategory(cat.id)" class="menu-card">
+        <md-card>
+          <md-card-title>{{menu.name}}</md-card-title>
+          <md-card-subtitle>
+            <md-chip-list>
+              <div style="float: right; width: 100%;">
+                <md-chip color='warn'><span>฿</span>{{menu.price}}</md-chip>
+              </div>
+            </md-chip-list>
+          </md-card-subtitle>
+        </md-card>
+      </button>
+    </div>
+  </md-tab>
+</md-tab-group>
+
+<div class="order-detail">
+  <md-table #orderTable [(dataSource)]="dataSource">
+    <ng-container mdColumnDef="name">
+      <md-header-cell *mdHeaderCellDef> รายการ </md-header-cell>
+      <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="amount">
+      <md-header-cell *mdHeaderCellDef> จำนวน </md-header-cell>
+      <md-cell *mdCellDef="let row"> {{row.amount}} </md-cell>
+    </ng-container>
+
+
+    <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+  </md-table>
+</div>
+

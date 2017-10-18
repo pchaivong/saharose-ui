@@ -29,6 +29,14 @@ export class MenuService {
     mockData.push(menu);
   }
 
+  getMenuByCategory(categoryId: number){
+    return mockData.filter((v) => {
+      if(v.categoryId==categoryId){
+        return true;
+      }
+    })
+  }
+
   removeMock(menu: MenuData){
     mockData.forEach((v, i) => {
       if (v.id == menu.id){
@@ -65,8 +73,13 @@ export interface MenuData{
 
 // Mockup stuff
 let mockData: MenuData[] = [
-  {id: 1, name: 'Noodle', categoryId: 1, price: 35},
-  {id: 2, name: 'Noodless', categoryId: 1, price: 35},
-  {id: 3, name: 'Water', categoryId: 2, price: 2},
+  {id: 1, name: 'ก๋วยจั๊บ', categoryId: 1, price: 35},
+  {id: 2, name: 'ก๋วยเตี๋ยว', categoryId: 1, price: 35},
+  {id: 3, name: 'เกาเหลา', categoryId: 1, price: 40},
+  {id: 4, name: 'น้ำเปล่า', categoryId: 2, price: 2},
+  {id: 5, name: 'เป๊ปซี่', categoryId: 2, price: 2},
+  {id: 6, name: 'ข้าว', categoryId: 1, price: 5},
+  {id: 7, name: 'โจ๊ก', categoryId: 1, price: 25},
+  {id: 8, name: 'ผักลวก', categoryId: 1, price: 5},
 ];
 let mockNextId: number = 1;

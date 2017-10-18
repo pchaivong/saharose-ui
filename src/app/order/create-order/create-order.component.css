@@ -5,3 +5,29 @@ md-button-toggle-group {
 md-button-toggle {
     padding: 5px;
 }
+.table-info {
+    width: 100%;
+}
+.table-card {
+    margin: 10px;
+}
+.menu-card {
+    width: 200px;
+    margin: 10px;
+    flex: 1 1 auto;
+    padding: 0px;
+}
+
+.order-category {
+    margin-top: 20px;
+}
+
+.menu-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+}
+
+mat-chip {
+    float: right;
+}
