@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { DataSource } from '@angular/cdk/collections';
+import { IngredientData } from './ingredient.service';
+
 import 'rxjs/add/observable/of';
 
 @Injectable()
@@ -34,7 +36,12 @@ export class MenuService {
       if(v.categoryId==categoryId){
         return true;
       }
-    })
+    });
+  }
+
+  refresh(): MenuDataSource {
+    this.dataSource =  new MenuDataSource(this);
+    return this.dataSource;
   }
 
   removeMock(menu: MenuData){
@@ -68,18 +75,21 @@ export interface MenuData{
   id: number,
   name: string,
   categoryId: number,
-  price: number
+  price: number,
+  ingredients: IngredientData[],
+  addOn: IngredientData[]
 }
 
 // Mockup stuff
 let mockData: MenuData[] = [
-  {id: 1, name: 'ก๋วยจั๊บ', categoryId: 1, price: 35},
-  {id: 2, name: 'ก๋วยเตี๋ยว', categoryId: 1, price: 35},
-  {id: 3, name: 'เกาเหลา', categoryId: 1, price: 40},
-  {id: 4, name: 'น้ำเปล่า', categoryId: 2, price: 2},
-  {id: 5, name: 'เป๊ปซี่', categoryId: 2, price: 2},
-  {id: 6, name: 'ข้าว', categoryId: 1, price: 5},
-  {id: 7, name: 'โจ๊ก', categoryId: 1, price: 25},
-  {id: 8, name: 'ผักลวก', categoryId: 1, price: 5},
+  {id: 1, name: 'ก๋วยจั๊บ', categoryId: 1, price: 35, ingredients: [], addOn: []},
+  {id: 2, name: 'ก๋วยเตี๋ยว', categoryId: 1, price: 35, ingredients: [], addOn: []},
+  {id: 3, name: 'เกาเหลา', categoryId: 1, price: 40, ingredients: [], addOn: []},
+  {id: 4, name: 'น้ำเปล่า', categoryId: 2, price: 2, ingredients: [], addOn: []},
+  {id: 5, name: 'เป๊ปซี่', categoryId: 2, price: 2, ingredients: [], addOn: []},
+  /*
+  {id: 6, name: 'ข้าว', categoryId: 1, price: 5, ingredients: [], addOn: []},
+  {id: 7, name: 'โจ๊ก', categoryId: 1, price: 25, ingredients: [], addOn: []},
+  {id: 8, name: 'ผักลวก', categoryId: 1, price: 5, ingredients: [], addOn: []}, */
 ];
 let mockNextId: number = 1;

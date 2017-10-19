@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MenuService } from '../../services/menu.service';
+import { MenuService, MenuData } from '../../services/menu.service';
+import { CategoryData, CategoryService } from '../../services/category.service';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA, MdButton} from '@angular/material';
 
 @Component({
@@ -17,13 +18,13 @@ export class CreateOrderComponent implements OnInit {
   selectedTableLabel: string = '';
   public dataSource;
 
-  categories = [
-    {id: 1, name: 'Food'},
-    {id: 2, name: 'Drink'}
-  ];
+  categories: CategoryData[];
 
   constructor(private menuService: MenuService,
-              public dialog: MdDialog) { }
+              private categoryService: CategoryService,
+              public dialog: MdDialog){
+    categoryService.listCategories().subscribe(data => this.categories = data);
+  }
 
   ngOnInit() {
   }

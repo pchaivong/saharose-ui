@@ -16,13 +16,14 @@ import { MdToolbarModule,
          MatIconModule,
          MatDialogModule,
          MatFormFieldModule,
-         MatSelectModule,
+         MdSelectModule,
          MatSlideToggleModule,
          MatTabsModule,
          MatButtonToggleModule,
          MdSidenavModule,
          MatListModule,
          MdChipsModule,
+         MdFormFieldModule,
                           } from '@angular/material';
 import { CookViewComponent } from './cook-view/cook-view.component';
 import { CategoryComponent } from './category/category.component';
@@ -34,6 +35,7 @@ import { IngredientService } from './services/ingredient.service';
 import { MenuService } from './services/menu.service';
 
 import { DialogEditCategory } from './category/category.component';
+import { DialogAddMenu } from './menu/menu.component';
 import { DialogAddOrderDetail } from './order/create-order/create-order.component';
 import { IngredientComponent } from './ingredient/ingredient.component';
 import { MenuComponent } from './menu/menu.component';
@@ -56,6 +58,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     CreateOrderComponent,
     SidenavComponent,
     DialogAddOrderDetail,
+    DialogAddMenu, 
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatIconModule,
     MatDialogModule,
     FormsModule,
-    MatSelectModule,
+    MdSelectModule,
     MatFormFieldModule,
     MatSlideToggleModule,
     MatTabsModule,
@@ -77,6 +80,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MdSidenavModule,
     MatListModule,
     MdChipsModule,
+    MdFormFieldModule,
 
     RouterModule.forRoot([
       {
@@ -103,6 +107,6 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MenuService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogEditCategory, DialogAddOrderDetail]
+  entryComponents: [DialogEditCategory, DialogAddOrderDetail, DialogAddMenu]
 })
 export class AppModule { }

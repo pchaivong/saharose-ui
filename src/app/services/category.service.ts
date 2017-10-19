@@ -35,8 +35,8 @@ export class CategoryService {
 }
 
 let mockData: CategoryData[] = [
-  {id: 1, name: 'Food', numItems: 3},
-  {id: 2, name: 'Drink', numItems: 4}
+  {id: 1, name: 'อาหาร', numItems: 3},
+  {id: 2, name: 'เครื่องดื่ม', numItems: 4}
 ];
 
 let mockNextId: number = 3;

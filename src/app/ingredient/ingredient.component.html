@@ -10,10 +10,16 @@
                 <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
               </ng-container>
           
-              <!-- Column: Number of items in category -->
+              <!-- Column: Category Name -->
               <ng-container mdColumnDef="catName">
                 <md-header-cell *mdHeaderCellDef>Category </md-header-cell>
-                <md-cell *mdCellDef="let row"> {{row.catName}}</md-cell>
+                <md-cell *mdCellDef="let row"> {{getCategoryNameById(row.categoryId)}}</md-cell>
+              </ng-container>
+
+              <!-- Column: Price -->
+              <ng-container mdColumnDef="price">
+                <md-header-cell *mdHeaderCellDef>Price</md-header-cell>
+                <md-cell *mdCellDef="let row"><span>฿</span>{{row.price}}</md-cell>
               </ng-container>
   
               <!-- Column: Actions -->
@@ -57,11 +63,9 @@
               {{cat.name}}
             </md-option>
           </md-select>
-          <md-slide-toggle color="primary">
-            Enable AddOn
-          </md-slide-toggle>
 
-          <button md-fab md-raised-button color="warn" type="submit" (click)="add(ingName.value, price.value)">
+          <button md-fab md-raised-button color="warn" type="submit" 
+            (click)="add(ingName.value, price.value, selectedValue)">
               <md-icon>add</md-icon>
           </button>
         </section>

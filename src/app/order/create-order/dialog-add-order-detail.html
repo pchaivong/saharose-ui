@@ -4,13 +4,15 @@
         <section>
             <h3>ส่วนประกอบ</h3>
             <div class="topping-group">
-                <md-slide-toggle checked="true" class="topping-toggle" color="primary" *ngFor="let topping of this.toppings">{{topping}}</md-slide-toggle>
+                <md-slide-toggle checked="true" class="topping-toggle" color="primary" 
+                *ngFor="let topping of this.data.ingredients">{{topping.name}}</md-slide-toggle>
             </div>
         </section>
         <section>
             <h3>เพิ่มพิเศษ</h3>
             <div class="topping-group">
-                <md-slide-toggle class="topping-toggle" color="primary" *ngFor="let topping of this.toppings">{{topping}}</md-slide-toggle>
+                <md-slide-toggle class="topping-toggle" color="primary" 
+                *ngFor="let topping of this.data.addOn">{{topping.name}}</md-slide-toggle>
             </div>
         </section>
         <br/>

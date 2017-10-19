@@ -14,7 +14,7 @@
                 <!-- Column: Number of items in category -->
                 <ng-container mdColumnDef="category">
                   <md-header-cell *mdHeaderCellDef>Category</md-header-cell>
-                  <md-cell *mdCellDef="let row"> {{row.categoryId}}</md-cell>
+                  <md-cell *mdCellDef="let row"> {{getCategoryName(row.categoryId)}}</md-cell>
                 </ng-container>
                 <ng-container mdColumnDef="price">
                   <md-header-cell *mdHeaderCellDef>Price </md-header-cell>
@@ -32,7 +32,7 @@
             </div>
       </md-card-content>
       <md-card-actions align="end">
-          <button md-fab md-raised-button color="warn" type="submit">
+          <button md-fab md-raised-button color="warn" type="submit" (click)="openAddMenuDialog()">
               <md-icon>add</md-icon>
           </button> 
       </md-card-actions>
