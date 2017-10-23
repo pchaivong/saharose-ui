@@ -1,6 +1,5 @@
 .ingredient-card {
-    width: 400px;
-    min-width: 350px;
+    width: 60vw;
 }
 
 md-card {

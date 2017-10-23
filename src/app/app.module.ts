@@ -34,10 +34,10 @@ import { CategoryService } from './services/category.service';
 import { IngredientService } from './services/ingredient.service';
 import { MenuService } from './services/menu.service';
 
-import { DialogEditCategory } from './category/category.component';
+import { DialogEditCategory, DialogAddCategory } from './category/category.component';
 import { DialogAddMenu } from './menu/menu.component';
 import { DialogAddOrderDetail } from './order/create-order/create-order.component';
-import { IngredientComponent } from './ingredient/ingredient.component';
+import { IngredientComponent, DialogAddIngredient, DialogEditIngredient } from './ingredient/ingredient.component';
 import { MenuComponent } from './menu/menu.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { CreateOrderDetailComponent } from './order/create-order-detail/create-order-detail.component';
@@ -59,6 +59,9 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     SidenavComponent,
     DialogAddOrderDetail,
     DialogAddMenu, 
+    DialogAddCategory,
+    DialogAddIngredient,
+    DialogEditIngredient
   ],
   imports: [
     BrowserModule,
@@ -107,6 +110,13 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MenuService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogEditCategory, DialogAddOrderDetail, DialogAddMenu]
+  entryComponents: [
+    DialogEditCategory, 
+    DialogAddOrderDetail, 
+    DialogAddMenu, 
+    DialogAddCategory,
+    DialogAddIngredient,
+    DialogEditIngredient,
+  ]
 })
 export class AppModule { }

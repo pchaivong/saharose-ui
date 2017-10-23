@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MenuService, MenuData } from '../../services/menu.service';
 import { CategoryData, CategoryService } from '../../services/category.service';
+import { OrderService, OrderData, OrderDetailData } from '../../services/order.service';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA, MdButton} from '@angular/material';
 
 @Component({
@@ -20,10 +21,13 @@ export class CreateOrderComponent implements OnInit {
 
   categories: CategoryData[];
 
+  order: OrderData;
+
   constructor(private menuService: MenuService,
               private categoryService: CategoryService,
               public dialog: MdDialog){
     categoryService.listCategories().subscribe(data => this.categories = data);
+    this.order = {id: 0, details: []};
   }
 
   ngOnInit() {
@@ -41,11 +45,14 @@ export class CreateOrderComponent implements OnInit {
   // TODO: fix parameter typesafe
   openAddOrderDetailDialog(menu: any): void{
     let dialogRef = this.dialog.open(DialogAddOrderDetail, {
+      width: '50%',
       data: menu
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      console.log("Order detail added");
+      this.order.details.push(result);
+      console.log(this.order);
     })
   }
 
@@ -58,46 +65,72 @@ export class CreateOrderComponent implements OnInit {
 })
 export class DialogAddOrderDetail{
 
-  toppings = [
-    'ถั่วต้ม',
-    'หัวใจ',
-    'ตับ',
-    'ไต',
-    'ใส้',
-    'พุง',
-  ];
-
   public amount: number = 1;
   @ViewChild('decBtn')decBtn: MdButton;
+
+  public orderDetail: OrderDetailData;
+  private menuConfiguration: MenuData;
 
   constructor(
     public dialogRef: MdDialogRef<DialogAddOrderDetail>,
     @Inject(MD_DIALOG_DATA) public data:any
-  ){}
+  ){
+    this.menuConfiguration = Object.assign({}, data);
+    this.orderDetail = {id: 0, menu: Object.assign({}, data)};
+    this.orderDetail.menu.addOn = [];
+    this.orderDetail.menu.ingredients = Object.assign([], this.menuConfiguration.ingredients);
+    console.log(this.orderDetail);
+  }
 
   placeOrder(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.orderDetail);
   }
 
   cancelOrder(): void {
     this.dialogRef.close();
   }
 
+
+  // Amounts
   incAmount(){
     this.amount++;
     this.checkAmount();
   }
-
   decAmount(){
       this.amount--;
       this.checkAmount();
   }
-
   checkAmount(){
     if (this.amount == 0){
       this.decBtn.disabled = true;
     } else {
       this.decBtn.disabled = false;
+    }
+  }
+
+  // Add-on and ingredients selection
+  ingredientSelection(e, ing) {
+    if (e.checked){
+      this.orderDetail.menu.ingredients.push(ing);
+    }
+    else {  // Remove from ingredients
+      this.orderDetail.menu.ingredients.forEach((v, i) =>{
+        if (v.id == ing.id){
+          this.orderDetail.menu.ingredients.splice(i, 1);
+        }
+      })
+    }
+  }
+  toppingSelection(e, topping){
+    if (e.checked){
+      this.orderDetail.menu.addOn.push(topping);
+    }
+    else {
+      this.orderDetail.menu.addOn.forEach((v,i) => {
+        if (v.id == topping.id){
+          this.orderDetail.menu.addOn.splice(i, 1);
+        }
+      })
     }
   }
 

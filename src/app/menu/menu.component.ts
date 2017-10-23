@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MenuService, MenuData } from '../services/menu.service';
+import { MenuService, MenuData, SizeData } from '../services/menu.service';
 import { IngredientService, IngredientData } from '../services/ingredient.service';
 import { CategoryService, CategoryData } from '../services/category.service';
 import { MdDialogRef, MdDialog, MD_DIALOG_DATA , MdSlideToggleChange } from '@angular/material';
+
 
 @Component({
   selector: 'app-menu',
@@ -32,6 +33,7 @@ export class MenuComponent implements OnInit {
 
   removeMenu(menu: MenuData){
     this.menuService.remove(menu);
+    this.dataSource = this.menuService.refresh();
   }
 
   getCategoryName(id: number){
@@ -65,12 +67,16 @@ export class DialogAddMenu {
 
   ingredients: IngredientData[];
   categories: CategoryData[];
+  sizes: SizeData[] = [];
 
   menuName: string;
   menuPrice: number;
   menuCat: number;
   menuAddOns: IngredientData[] = [];
   menuIngredients: IngredientData[] = [];
+
+  sizeName: string;
+  sizePrice: number;
 
   constructor(
     private ingredientService: IngredientService,
@@ -96,7 +102,7 @@ export class DialogAddMenu {
     let data = {
       id: 0, 
       name: this.menuName,
-      price: this.menuPrice,
+      size: this.sizes,
       categoryId: this.menuCat,
       ingredients: this.menuIngredients,
       addOn: this.menuAddOns
@@ -107,6 +113,9 @@ export class DialogAddMenu {
   }
 
   // Event handlers
+  addSize(){
+    this.sizes.push({name: this.sizeName, price: this.sizePrice});
+  }
   addOnToggle(event: MdSlideToggleChange, ing: IngredientData){
     if(event.checked){
       this.menuAddOns.push(ing);

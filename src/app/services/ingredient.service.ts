@@ -33,8 +33,11 @@ export class IngredientService {
   }
 
   update(ingredient: IngredientData){
-    let id = ingredient.id;
-    console.log("TODO");
+    mockData.forEach((v, i) => {
+      if (v.id == ingredient.id){
+        mockData[i] = Object.assign({}, ingredient);
+      }
+    });  
   }
 
   refresh(): IngredientDataSource{

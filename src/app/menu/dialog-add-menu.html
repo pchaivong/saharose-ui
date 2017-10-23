@@ -13,9 +13,26 @@
         </section>
 
         <md-form-field>
-            <span mdPrefix>฿ &nbsp;</span>
-            <input mdInput placeholder="Price" type="number" [(ngModel)]="menuPrice">
+            <input mdInput placeholder="Size" type="text" [(ngModel)]="sizeName">
         </md-form-field>
+        <md-form-field>
+            <span mdPrefix>฿ &nbsp;</span>
+            <input mdInput placeholder="Price" type="number" [(ngModel)]="sizePrice">
+        </md-form-field>
+        <button md-mini-fab color="primary" (click)="addSize()"><md-icon>add</md-icon></button>
+        <div>
+            <h3>Sizes</h3>
+            <md-form-field>
+            <md-chip-list>
+                <md-chip *ngFor="let size of this.sizes" color="primary" removable selectable>
+                    <span>{{size.name}}</span>
+                    <span>: </span>
+                    <span>{{size.price}}</span>
+                    <span><md-icon mdChipRemove>cancel</md-icon></span>
+                </md-chip>
+            </md-chip-list>
+            </md-form-field>
+        </div>
 
         <div>
             <h3>ส่วนประกอบ</h3>

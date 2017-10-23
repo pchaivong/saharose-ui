@@ -24,13 +24,6 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
   }
 
-  testAdd(catName){
-    console.log("test add new items");
-    let data = { id: 0, name: catName, numItems: 0};
-    this.categoryService.addCategory(data);
-    this.reload();
-  }
-
   openDialog(item): void {
     let dialogRef = this.dialog.open(DialogEditCategory, {
       width: '250px',
@@ -38,8 +31,21 @@ export class CategoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("Dialog is closed");
       console.log(result);
+    });
+  }
+
+  openAddCategoryDialog() {
+    let dialogRef = this.dialog.open(DialogAddCategory,{
+      width: '50%',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        console.log(result);
+        this.categoryService.addCategory(result);
+        this.reload();
+      }
     });
   }
 
@@ -53,29 +59,57 @@ export class CategoryComponent implements OnInit {
     this.reload();
   }
 
+  selectRow(row){
+    console.log(row);
+  }
+
 }
 
+/**
+ * Add Category dialog
+ */
+@Component({
+  selector: 'dialog-add-category',
+  templateUrl: './dialog-add-category.html'
+})
+export class DialogAddCategory {
+
+  category: CategoryData;
+
+  constructor(
+    public dialogRef: MdDialogRef<DialogAddCategory>
+  ){
+    this.category = {id: 0, name: '', numItems: 0, kittenEnabled: false};
+  }
+
+  addCategory(){
+    this.dialogRef.close(this.category);
+  }
+}
+
+
+/**
+ * Edit Category Dialog
+ */
 @Component({
   selector: 'dialog-edit-category-dialog',
   templateUrl: './dialog-edit-category-dialog.html',
 })
 export class DialogEditCategory{
 
-  newCateName: string;
-
   constructor(
     public dialogRef: MdDialogRef<DialogEditCategory>,
+    private categoryService: CategoryService,
     @Inject(MD_DIALOG_DATA) public data: any){ 
-
-     this.newCateName = this.data.name;
     }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  confirmNewName(){
-    this.dialogRef.close(this.data);
+  updateCategory(){
+    this.categoryService.update(this.data);
+    this.dialogRef.close();
   }
 }
 

@@ -1,0 +1,53 @@
+<md-card class="menu-config-form mat-elevation-z1">
+        <md-card-title>แก้ไขเมนู</md-card-title>
+        <md-card-content>
+    
+            <md-form-field>
+                <input mdInput placeholder="Name" [(ngModel)]="menuName">
+            </md-form-field>
+    
+            <section>
+                <md-select placeholder="Category" [(ngModel)]="menuCat">
+                    <md-option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</md-option>
+                </md-select>
+            </section>
+    
+            <md-form-field>
+                <input mdInput placeholder="Size" type="text" [(ngModel)]="sizeName">
+            </md-form-field>
+            <md-form-field>
+                <span mdPrefix>฿ &nbsp;</span>
+                <input mdInput placeholder="Price" type="number" [(ngModel)]="sizePrice">
+            </md-form-field>
+            <button md-mini-fab color="primary" (click)="addSize()"><md-icon>add</md-icon></button>
+            <div>
+                <h3>Sizes</h3>
+                <md-form-field>
+                <md-chip-list>
+                    <md-chip *ngFor="let size of this.sizes" color="primary" removable selectable>
+                        <span>{{size.name}}</span>
+                        <span>: </span>
+                        <span>{{size.price}}</span>
+                        <span><md-icon mdChipRemove>cancel</md-icon></span>
+                    </md-chip>
+                </md-chip-list>
+                </md-form-field>
+            </div>
+    
+            <div>
+                <h3>ส่วนประกอบ</h3>
+                <md-slide-toggle class="ingredient-toggle" color="primary"
+                    *ngFor="let ing of ingredients" (change)="ingredientToggle($event, ing)">{{ing.name}}</md-slide-toggle>
+            </div>
+    
+            <div>
+                <h3>เพิ่มพิเศษ</h3>
+                <md-slide-toggle class="topping-toggle" color="primary"
+                    *ngFor="let ing of ingredients" (change)="addOnToggle($event, ing)">{{ing.name}}</md-slide-toggle>
+            </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button color="primary" (click)="addMenu()">เพิ่มเมนู</button>
+            <button md-raised-button color="primary" (click)="cancelAddMenu()">ยกเลิก</button>
+        </md-card-actions>
+    </md-card>

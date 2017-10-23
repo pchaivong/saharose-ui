@@ -21,6 +21,14 @@ export class CategoryService {
     console.log(cat.name + " added");
   }
 
+  update(cat: CategoryData) {
+    mockData.forEach((v, i) => {
+      if (v.id == cat.id){
+        mockData[i] = Object.assign({}, cat);
+      }
+    });
+  }
+
   remove(category: CategoryData){
     // For mock
     console.log("Remove category id: " + category.id);
@@ -35,14 +43,15 @@ export class CategoryService {
 }
 
 let mockData: CategoryData[] = [
-  {id: 1, name: 'อาหาร', numItems: 3},
-  {id: 2, name: 'เครื่องดื่ม', numItems: 4}
+  {id: 1, name: 'อาหาร', numItems: 3, kittenEnabled: true},
+  {id: 2, name: 'เครื่องดื่ม', numItems: 4, kittenEnabled: false}
 ];
 
 let mockNextId: number = 3;
 
 export interface CategoryData {
-  id: Number,
-  name: String,
-  numItems : Number
+  id: number,
+  name: string,
+  numItems : number,
+  kittenEnabled: boolean
 }

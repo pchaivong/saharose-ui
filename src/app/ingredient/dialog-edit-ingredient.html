@@ -1,0 +1,27 @@
+<h2 md-dialog-title>Update Ingredient</h2>
+<md-dialog-content>
+    <!-- Ingredient Name -->
+    <md-form-field>
+        <input mdInput [(ngModel)]="ingredient.name"placeholder="Name" autofocus >
+    </md-form-field>
+
+    <!-- Ingredient Price -->
+    <md-form-field>
+        <span mdPrefix>฿ &nbsp;</span>
+        <input mdInput type="number" [(ngModel)]="ingredient.price"placeholder="Price" autofocus >
+    </md-form-field>   
+
+    <!-- Category Selection -->
+    <md-select placeholder="Category" [(ngModel)]="ingredient.categoryId">
+        <md-option *ngFor="let cat of categories" [value]="cat.id">
+            {{cat.name}}
+        </md-option>
+    </md-select>
+
+   
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close (click)="cancel()">Cancel</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-button (click)="updateIngredient()">Update</button>
+</md-dialog-actions>

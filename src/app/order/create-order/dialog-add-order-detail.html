@@ -1,18 +1,21 @@
 <md-card class="order-detail-form" class="mat-elevation-z1">
     <md-card-title>{{this.data.name}}</md-card-title>
     <md-card-content>
+        <md-button-toggle-group>
+            <md-button-toggle *ngFor="let size of this.menuConfiguration.size" selected color="primary">{{size.name}}</md-button-toggle>
+        </md-button-toggle-group>
         <section>
             <h3>ส่วนประกอบ</h3>
             <div class="topping-group">
                 <md-slide-toggle checked="true" class="topping-toggle" color="primary" 
-                *ngFor="let topping of this.data.ingredients">{{topping.name}}</md-slide-toggle>
+                *ngFor="let ing of this.menuConfiguration.ingredients" (change)="ingredientSelection($event, ing)">{{ing.name}}</md-slide-toggle>
             </div>
         </section>
         <section>
             <h3>เพิ่มพิเศษ</h3>
             <div class="topping-group">
                 <md-slide-toggle class="topping-toggle" color="primary" 
-                *ngFor="let topping of this.data.addOn">{{topping.name}}</md-slide-toggle>
+                *ngFor="let topping of this.menuConfiguration.addOn" (change)="toppingSelection($event, topping)">{{topping.name}}</md-slide-toggle>
             </div>
         </section>
         <br/>
