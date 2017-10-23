@@ -69,7 +69,7 @@ export class DialogAddOrderDetail{
   @ViewChild('decBtn')decBtn: MdButton;
 
   public orderDetail: OrderDetailData;
-  private menuConfiguration: MenuData;
+  public menuConfiguration: MenuData;
 
   constructor(
     public dialogRef: MdDialogRef<DialogAddOrderDetail>,
