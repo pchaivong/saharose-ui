@@ -24,6 +24,7 @@ import { MdToolbarModule,
          MatListModule,
          MdChipsModule,
          MdFormFieldModule,
+         MdMenuModule,
                           } from '@angular/material';
 import { CookViewComponent } from './cook-view/cook-view.component';
 import { CategoryComponent } from './category/category.component';
@@ -45,6 +46,7 @@ import { CreateOrderDetailComponent } from './order/create-order-detail/create-o
 import { CreateOrderComponent } from './order/create-order/create-order.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LoginComponent } from './login/login.component';
+import { UserAvatarComponent } from './user-avatar/user-avatar.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { LoginComponent } from './login/login.component';
     DialogAddCategory,
     DialogAddIngredient,
     DialogEditIngredient,
-    LoginComponent
+    LoginComponent,
+    UserAvatarComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +90,7 @@ import { LoginComponent } from './login/login.component';
     MatListModule,
     MdChipsModule,
     MdFormFieldModule,
+    MdMenuModule,
 
     RouterModule.forRoot([
       {

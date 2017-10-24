@@ -1,0 +1,7 @@
+<button md-icon-button [matMenuTriggerFor]="menu">
+  <md-icon>face</md-icon>
+</button>
+
+<md-menu #menu="matMenu">
+  <button mat-menu-item (click)="logout()">Logout</button>
+</md-menu>

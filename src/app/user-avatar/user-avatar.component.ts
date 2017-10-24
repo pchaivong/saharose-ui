@@ -1,14 +1,15 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-tool-bar',
-  templateUrl: './tool-bar.component.html',
-  styleUrls: ['./tool-bar.component.css']
+  selector: 'app-user-avatar',
+  templateUrl: './user-avatar.component.html',
+  styleUrls: ['./user-avatar.component.css']
 })
-export class ToolBarComponent implements OnInit {
+export class UserAvatarComponent implements OnInit {
 
   @Output()
   onLogout: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() {
@@ -17,4 +18,5 @@ export class ToolBarComponent implements OnInit {
   logout(){
     this.onLogout.emit();
   }
+
 }
