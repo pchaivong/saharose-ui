@@ -43,6 +43,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { CreateOrderDetailComponent } from './order/create-order-detail/create-order-detail.component';
 import { CreateOrderComponent } from './order/create-order/create-order.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     DialogAddMenu, 
     DialogAddCategory,
     DialogAddIngredient,
-    DialogEditIngredient
+    DialogEditIngredient,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
