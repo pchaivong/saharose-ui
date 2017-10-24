@@ -47,6 +47,8 @@ import { CreateOrderComponent } from './order/create-order/create-order.componen
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LoginComponent } from './login/login.component';
 import { UserAvatarComponent } from './user-avatar/user-avatar.component';
+import { OrderDetailItemComponent } from './order/order-detail-item/order-detail-item.component';
+import { OrderDetailListComponent } from './order/order-detail-list/order-detail-list.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { UserAvatarComponent } from './user-avatar/user-avatar.component';
     DialogAddIngredient,
     DialogEditIngredient,
     LoginComponent,
-    UserAvatarComponent
+    UserAvatarComponent,
+    OrderDetailItemComponent,
+    OrderDetailListComponent
   ],
   imports: [
     BrowserModule,

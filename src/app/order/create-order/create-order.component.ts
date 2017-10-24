@@ -19,6 +19,11 @@ export class CreateOrderComponent implements OnInit {
   selectedTableLabel: string = '';
   public dataSource;
 
+  public mockDetails: OrderDetailData[] = [
+    {id: 1, menu: {id: 1, name: 'ก๋วยจั๊บ', categoryId: 1, size:[{name: "ธรรมดา", price: 30}, {name: "พิเศษ", price: 40}] , ingredients: [], addOn: []} },
+    {id: 3, menu: {id: 2, name: 'ก๋วยเตี๋ยว', categoryId: 1, size:[{name: "ธรรมดา", price: 30}, {name: "พิเศษ", price: 40}], ingredients: [], addOn: []} },
+  ];
+
   categories: CategoryData[];
 
   order: OrderData;

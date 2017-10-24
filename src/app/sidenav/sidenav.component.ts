@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdSidenav } from '@angular/material';
 
@@ -9,18 +9,22 @@ import { MdSidenav } from '@angular/material';
 })
 export class SidenavComponent implements OnInit{
 
+  @Input('auth')
+  authData: any;
+
   // Add more menu here.
-  menus = [
-    { path: '/order', label: 'Order', icon: 'local_dining'},
-    { path: '/cooking', label: 'Cooking', icon: 'whatshot'},
-    { path: '/report', label: 'Report', icon: 'trending_up'},
-    { path: '/configuration', label: 'Configuration', icon: 'build'},
+  menus: MenuData[] = [
+    { path: '/order', label: 'Order', icon: 'local_dining', roles: ['admin', 'waitress']},
+    { path: '/cooking', label: 'Cooking', icon: 'whatshot', roles: ['admin', 'cook', 'waitress']},
+    { path: '/report', label: 'Report', icon: 'trending_up', roles: ['admin']},
+    { path: '/configuration', label: 'Configuration', icon: 'build', roles: ['admin']},
   ];
 
   
   @ViewChild('nav') nav: MdSidenav;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+   }
 
   ngOnInit() {
   }
@@ -33,4 +37,16 @@ export class SidenavComponent implements OnInit{
     this.nav.toggle();
   }
 
+  getAvailableMenu(): MenuData[]{
+    return this.menus.filter(v => {
+      return (v.roles.includes(this.authData.role))
+    });
+  }
+}
+
+interface MenuData {
+  path: string,
+  label: string,
+  icon: string,
+  roles: string[]
 }

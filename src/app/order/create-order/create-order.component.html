@@ -42,6 +42,8 @@
   </md-tab>
 </md-tab-group>
 
+<app-order-detail-list [items]="mockDetails"></app-order-detail-list>
+
 <div class="order-detail">
   <md-table #orderTable [(dataSource)]="dataSource">
     <ng-container mdColumnDef="name">

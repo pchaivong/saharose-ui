@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'app';
   public isAuthenticated: boolean;
+  public authData: any;
 
   constructor(private authService: AuthService){
     this.isAuthenticated = authService.isAuthenticated;
@@ -17,6 +18,7 @@ export class AppComponent {
   login(e){
     console.log("logging in ....");
     this.isAuthenticated = this.authService.login(e.username, e.password);
+    this.authData = this.authService.authdata;
   }
 
   logout(){

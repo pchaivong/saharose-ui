@@ -6,9 +6,9 @@
   </div>
   <div flex="85" style="flex: 1 1 auto;">
     <div style="float:right;">
-      <app-user-avatar (onLogout)="logout()"></app-user-avatar>
+      <app-user-avatar (onLogout)="logout()" [username]="authData.username"></app-user-avatar>
     </div>
   </div>
 </md-toolbar>
-<app-sidenav #sidenav></app-sidenav>
+<app-sidenav #sidenav [auth]="authData"></app-sidenav>
 
