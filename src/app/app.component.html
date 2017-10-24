@@ -1,5 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div layout="row" flex layout-fill class="main-app">
-  <app-tool-bar></app-tool-bar>
+  <app-tool-bar *ngIf="isAuthenticated"></app-tool-bar>
+  <app-login *ngIf="!isAuthenticated" (onLogin)="login($event)"></app-login>
 </div>
 

@@ -1,3 +1,20 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <div class="center">
+    <div class="username">
+      <md-form-field>
+        <input mdInput type="text" [(ngModel)]="username" placeholder="Username">
+      </md-form-field>
+    </div>
+
+    <div class="password">
+      <md-form-field>
+        <input mdInput type="password" [(ngModel)]="password" placeholder="Password">
+      </md-form-field>
+    </div>
+
+    <div class="actions">
+      <button md-raised-button color="primary" (click)="login()" [disabled]="!submittable()">Login</button>
+      <button md-raised-button color="primary" (click)="clear()">Clear</button>
+    </div>
+  </div>
+</div>

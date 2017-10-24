@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    background-color: #1E88E5;
+    height: 100%;
+}
+
+.center {
+    margin: auto
+}
+
+.username {
+    color: white;
+}
+
+.password {
+    color: white;
+}

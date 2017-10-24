@@ -33,6 +33,7 @@ import { CategoryComponent } from './category/category.component';
 import { CategoryService } from './services/category.service';
 import { IngredientService } from './services/ingredient.service';
 import { MenuService } from './services/menu.service';
+import { AuthService } from './services/auth.service';
 
 import { DialogEditCategory, DialogAddCategory } from './category/category.component';
 import { DialogAddMenu } from './menu/menu.component';
@@ -110,6 +111,7 @@ import { LoginComponent } from './login/login.component';
     CategoryService,
     IngredientService,
     MenuService,
+    AuthService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
