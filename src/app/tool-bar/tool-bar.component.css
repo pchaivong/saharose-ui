@@ -11,3 +11,8 @@
 app-sidenav {
     height: 100%;
 }
+
+md-toolbar {
+    background: #3f51b5;
+    color: hsla(0,0%,100%,.87);
+}

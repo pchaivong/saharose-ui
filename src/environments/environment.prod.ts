@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiEndpoint: 'http://35.185.182.250:8080/api'
 };

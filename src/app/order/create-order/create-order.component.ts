@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MenuService, MenuData } from '../../services/menu.service';
-import { CategoryData, CategoryService } from '../../services/category.service';
+import { CategoryData, CategoryService, CategoryItem } from '../../services/category.service';
 import { OrderService, OrderData, OrderDetailData } from '../../services/order.service';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA, MdButton} from '@angular/material';
 
@@ -24,14 +24,14 @@ export class CreateOrderComponent implements OnInit {
     {id: 3, menu: {id: 2, name: 'ก๋วยเตี๋ยว', categoryId: 1, size:[{name: "ธรรมดา", price: 30}, {name: "พิเศษ", price: 40}], ingredients: [], addOn: []} },
   ];
 
-  categories: CategoryData[];
+  categories: CategoryItem[];
 
   order: OrderData;
 
   constructor(private menuService: MenuService,
               private categoryService: CategoryService,
               public dialog: MdDialog){
-    categoryService.listCategories().subscribe(data => this.categories = data);
+    categoryService.getCategoryList().subscribe(data => this.categories = data);
     this.order = {id: 0, details: []};
   }
 

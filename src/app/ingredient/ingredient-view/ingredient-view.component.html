@@ -1,0 +1,33 @@
+
+<div class="mat-elevation-z0">
+    <md-table #table [(dataSource)]="datasource">
+  
+      <!-- Column: Category Name column -->
+      <ng-container mdColumnDef="name">
+        <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+        <md-cell *mdCellDef="let row" (click)="selected(row)"> {{row.name}} </md-cell>
+      </ng-container>
+
+      <!-- Column: Price -->
+      <ng-container mdColumnDef="price">
+        <md-header-cell *mdHeaderCellDef>Price</md-header-cell>
+        <md-cell *mdCellDef="let row" (click)="selected(row)"><span>฿</span>{{row.price}}</md-cell>
+      </ng-container>
+
+      <!-- Column: Actions -->
+      <ng-container mdColumnDef="actions">
+          <md-header-cell *mdHeaderCellDef>Actions </md-header-cell>
+          <md-cell *mdCellDef="let row">
+            <button md-icon-button (click)="remove(row)">
+                <md-icon>delete</md-icon>
+            </button>
+          </md-cell>
+        </ng-container>
+  
+      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+    </md-table>
+  </div>
+
+      
+      

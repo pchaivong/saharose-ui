@@ -1,45 +1,59 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, OnChanges, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
-import { IngredientService, IngredientData, IngredientDataSource } from '../services/ingredient.service';
-import { CategoryService, CategoryData } from '../services/category.service';
+import { DataSource } from '@angular/cdk/collections';
+import { MdDialog, MdDialogRef, MD_DIALOG_DATA, MdSnackBar } from '@angular/material';
+import { IngredientService, IngredientData, IngredientDataSource, IngredientItem } from '../services/ingredient.service';
+import { CategoryService, CategoryItem } from '../services/category.service';
+import { CategoryIngredientItem } from '../configuration/configuration.component';
 
 @Component({
   selector: 'app-ingredient',
   templateUrl: './ingredient.component.html',
   styleUrls: ['./ingredient.component.css']
 })
-export class IngredientComponent implements OnInit {
+export class IngredientComponent implements OnInit, OnChanges {
 
-  displayedColumns = ['name', 'catName', 'price', 'actions'];
-  public dataSource: IngredientDataSource;
+  @Input('categories')
+  public categories: CategoryItem[];
+
+  @Input('ingredients')
+  public ingredients: CategoryIngredientItem[];
+
+  @Output()
+  onDelete: EventEmitter<IngredientItem> = new EventEmitter<IngredientItem>();
+
+  @Output()
+  onUpdate: EventEmitter<IngredientItem> = new EventEmitter<IngredientItem>();
+  
+  @Output()
+  onCreate: EventEmitter<any> = new EventEmitter<any>();
+
+
+
+
+
   selectedValue: string;
-  categories: CategoryData[];
 
-  constructor(private ingredientService: IngredientService, 
-              private categoryService: CategoryService,
-              public dialog: MdDialog) { 
-    this.dataSource = ingredientService.dataSource;
-    categoryService.listCategories().subscribe(data => {
-      this.categories = data;
-    });
-  }
+  constructor(private ingredientService: IngredientService,
+              public snackBar: MdSnackBar, 
+              public dialog: MdDialog) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(){
+
   }
 
   add(name, price, categoryId){
     let ingredient: IngredientData = {id: 0, name: name, price: price, categoryId: categoryId};
     this.ingredientService.add(ingredient);
     console.log(ingredient);
-    this.dataSource = this.ingredientService.refresh();
   }
 
   getCategoryNameById(id: number){
-    return this.categories.filter(v => {
-      return v.id==id;
-    }).map(v => v.name);
+    console.log(this.categories);
+    return "test";
   }
 
 
@@ -52,27 +66,30 @@ export class IngredientComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result){
-        this.dataSource = this.ingredientService.refresh();
+        this.onCreate.emit({item: result.ingredient, category: result.categoryId});
       }
     });
   }
 
-  openEditIngredientDialog(ingredient: IngredientData){
+  openEditIngredientDialog(item: IngredientItem){
+    console.log(item);
+    let data = { categories: this.categories, ing: item };
     let dialogRef = this.dialog.open(DialogEditIngredient, {
       width: '50%',
-      data: { ing: ingredient, categories: this.categories}
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result){
-        this.dataSource = this.ingredientService.refresh();
+      if(result){
+        this.onUpdate.emit(result);
       }
     });
   }
 
-  removeIngredient(ingredient: IngredientData){
-    this.ingredientService.remove(ingredient);
-    this.dataSource = this.ingredientService.refresh();
+
+
+  removeIngredient(ingredient: IngredientItem){
+    this.onDelete.emit(ingredient)
   }
 
 }
@@ -82,19 +99,19 @@ export class IngredientComponent implements OnInit {
   templateUrl: './dialog-add-ingredient.html'
 })
 export class DialogAddIngredient {
-  ingredient: IngredientData;
+  public categoryId: number;
+  public ingredient: IngredientItem = new IngredientItem(0, '', 0.0, 0.0);
 
   constructor(
     public dialogRef: MdDialogRef<DialogAddIngredient>,
-    private ingredientService: IngredientService,
     @Inject(MD_DIALOG_DATA) public data: any
   ){
-    this.ingredient = { id: 0, name:'', price: 0, categoryId: 0}
+
   }
 
   addIngredient(){
-    this.ingredientService.add(this.ingredient);
-    this.dialogRef.close(true);
+    let item = { ingredient: this.ingredient, categoryId: this.categoryId };
+    this.dialogRef.close(item);
   }
 
   cancel(){
@@ -102,13 +119,15 @@ export class DialogAddIngredient {
   }
 }
 
+
 @Component({
   selector: 'dialog-edit-ingredient',
   templateUrl: './dialog-edit-ingredient.html'
 })
 export class DialogEditIngredient {
-  ingredient: IngredientData
-  categories: CategoryData[]
+  ingredient: IngredientItem
+  categories: CategoryItem[]
+  public tmpCatId: number;
 
   constructor(
     public dialogRef: MdDialogRef<DialogEditIngredient>,
@@ -119,20 +138,59 @@ export class DialogEditIngredient {
       id: data.ing.id,
       name: data.ing.name,
       price: data.ing.price,
-      categoryId: data.ing.categoryId
+      costPerUnit: data.ing.costPerUnit
     };
     this.categories = data.categories;
   }
 
-  updateIngredient(){
-    this.ingredientService.update(this.ingredient);
-    this.dialogRef.close(true);
+  updateIngredient(){    
+    this.dialogRef.close(this.ingredient);
   }
 
   cancel(){
     this.dialogRef.close(false);
   }
 }
+
+
+/*
+export class IngredientDS extends DataSource<any>{
+  constructor(public ingredients: CategoryIngredientItem[],
+              public category: CategoryItem
+            ){
+    super();
+  }
+
+  connect(): Observable<IngredientItem[]>{
+    let a = this.ingredients.map(v => v.ingredients);
+    console.log(a);
+    return Observable.of(a.reduce((a,b) => a.concat(b), []));
+  }
+
+  disconnect(){}
+}
+*/
+
+/*
+export class IngredientDS extends DataSource<any>{
+  constructor(private ingredientService: IngredientService,
+              public category: CategoryItem
+            ){
+    super();
+  }
+
+  connect(): Observable<IngredientItem[]>{
+    return this.ingredientService.getIngredientList(this.category.id);
+  }
+
+  disconnect(){}
+
+  refresh(){
+  }
+
+}
+*/
+
 
 
 

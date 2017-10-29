@@ -12,7 +12,7 @@
     </md-form-field>   
 
     <!-- Category Selection -->
-    <md-select placeholder="Category" [(ngModel)]="ingredient.categoryId">
+    <md-select placeholder="Category" [(ngModel)]="tmpCatId">
         <md-option *ngFor="let cat of categories" [value]="cat.id">
             {{cat.name}}
         </md-option>

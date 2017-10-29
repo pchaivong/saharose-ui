@@ -1,10 +1,18 @@
 <div class="container">
   <md-tab-group class="config-tab-group">
     <md-tab label="Category">
-      <app-category></app-category>
+      <app-category [categories]="categories" 
+        (onCreate)="createCategory($event)"
+        (onDelete)="deleteCategory($event)"
+        (onUpdate)="updateCategory($event)"></app-category>
     </md-tab>
     <md-tab label="Ingredient">
-      <app-ingredient></app-ingredient>
+      <app-ingredient 
+        [categories]="categories"
+        [ingredients]="ingredients"
+        (onDelete)="removeIngredient($event)"
+        (onUpdate)="updateIngredient($event)"
+        (onCreate)="createIngredient($event)"></app-ingredient>
     </md-tab>
     <md-tab label="Menu">
       <app-menu></app-menu>

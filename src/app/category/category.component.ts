@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
+import { OnChanges } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MdDialog, MdDialogRef, MD_DIALOG_DATA, MdSnackBar } from '@angular/material';
 
-import { CategoryService, CategoryData } from '../services/category.service';
+import { CategoryService, CategoryData, CategoryItem } from '../services/category.service';
 
 
 @Component({
@@ -12,18 +13,43 @@ import { CategoryService, CategoryData } from '../services/category.service';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnChanges {
 
-  displayedColumns = ['name', 'numItems', 'actions'];
+  displayedColumns = ['name', 'menuItems', 'ingItems', 'actions'];
   public dataSource;
 
-  constructor(private categoryService: CategoryService, public dialog: MdDialog) {
-    this.dataSource = new CategoryDataSource(categoryService);
+  @Input('categories')
+  categories: CategoryItem[];
+
+  @Output()
+  onCreate: EventEmitter<CategoryItem> = new EventEmitter<CategoryItem>();
+
+  @Output()
+  onDelete: EventEmitter<CategoryItem> = new EventEmitter<CategoryItem>();
+
+  @Output()
+  onUpdate: EventEmitter<CategoryItem> = new EventEmitter<CategoryItem>();
+
+  constructor(private categoryService: CategoryService,
+              private ref: ChangeDetectorRef, 
+              public snackBar: MdSnackBar,
+              public dialog: MdDialog) {
+
+    this.dataSource = new CategoryDataSource(this.categories);
   }
 
   ngOnInit() {
+    console.log(this.categories);
   }
 
+  ngOnChanges(){
+    this.dataSource = new CategoryDataSource(this.categories);
+    console.log(this.dataSource);
+  }
+
+  /**
+   * Open Update Category dialog
+   */
   openDialog(item): void {
     let dialogRef = this.dialog.open(DialogEditCategory, {
       width: '250px',
@@ -31,7 +57,9 @@ export class CategoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result){
+        this.onUpdate.emit(result);
+      }
     });
   }
 
@@ -42,21 +70,18 @@ export class CategoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        console.log(result);
-        this.categoryService.addCategory(result);
-        this.reload();
+        this.onCreate.emit(result);
       }
     });
   }
 
   reload(){
-    this.dataSource = new CategoryDataSource(this.categoryService);
+    this.dataSource = new CategoryDataSource(this.categories);
+    this.ref.detectChanges();
   }
 
-  remove(element){
-    console.log("remove element" + element);
-    this.categoryService.remove(element);
-    this.reload();
+  remove(item: CategoryItem){
+    this.onDelete.emit(item);
   }
 
   selectRow(row){
@@ -79,7 +104,7 @@ export class DialogAddCategory {
   constructor(
     public dialogRef: MdDialogRef<DialogAddCategory>
   ){
-    this.category = {id: 0, name: '', numItems: 0, kittenEnabled: false};
+    this.category = {id: 0, name: '', menuItems: 0, ingredientItems: 0, kittenEnabled: false};
   }
 
   addCategory(){
@@ -103,22 +128,19 @@ export class DialogEditCategory{
     @Inject(MD_DIALOG_DATA) public data: any){ 
     }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   updateCategory(){
-    this.categoryService.update(this.data);
-    this.dialogRef.close();
+   // this.categoryService.update(this.data);
+    this.dialogRef.close(this.data);
   }
 }
 
+
 export class CategoryDataSource extends DataSource<any>{
-  constructor(private categoryService: CategoryService){
+  constructor(private data: CategoryItem[]){
     super();
   }
-  connect(): Observable<CategoryData[]>{
-    return this.categoryService.listCategories();
+  connect(): Observable<CategoryItem[]>{
+    return Observable.of(this.data);
   }
   disconnect(){}
 }

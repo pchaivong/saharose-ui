@@ -16,20 +16,24 @@
             <!-- Column: Category Name column -->
             <ng-container mdColumnDef="name">
               <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
-              <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+              <md-cell *mdCellDef="let row" (click)="openDialog(row)"> {{row.name}} </md-cell>
             </ng-container>
         
-            <!-- Column: Number of items in category -->
-            <ng-container mdColumnDef="numItems">
-              <md-header-cell *mdHeaderCellDef># items </md-header-cell>
-              <md-cell *mdCellDef="let row"> {{row.numItems}}</md-cell>
+            <!-- Column: Number of menu in category -->
+            <ng-container mdColumnDef="menuItems">
+              <md-header-cell *mdHeaderCellDef># menu </md-header-cell>
+              <md-cell *mdCellDef="let row" (click)="openDialog(row)"> {{row.menuItems}}</md-cell>
             </ng-container>
+
+            <!-- Column: Number of menu in category -->
+            <ng-container mdColumnDef="ingItems">
+                <md-header-cell *mdHeaderCellDef># ingredients </md-header-cell>
+                <md-cell *mdCellDef="let row" (click)="openDialog(row)"> {{row.ingredientItems}}</md-cell>
+              </ng-container>
 
             <!-- Column: Actions -->
             <ng-container mdColumnDef="actions">
-                <md-header-cell *mdHeaderCellDef>
-                  
-                </md-header-cell>
+                <md-header-cell *mdHeaderCellDef></md-header-cell>
                 <md-cell *mdCellDef="let row">
                   <button md-icon-button (click)="remove(row)">
                       <md-icon>delete</md-icon>
@@ -38,7 +42,7 @@
               </ng-container>
         
             <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-            <md-row *mdRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></md-row>
+            <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
           </md-table>
           
         </div>

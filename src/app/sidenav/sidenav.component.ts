@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdSidenav } from '@angular/material';
 
@@ -7,7 +7,7 @@ import { MdSidenav } from '@angular/material';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit{
+export class SidenavComponent implements OnInit, AfterViewInit{
 
   @Input('auth')
   authData: any;
@@ -24,9 +24,17 @@ export class SidenavComponent implements OnInit{
   @ViewChild('nav') nav: MdSidenav;
 
   constructor(private router: Router) {
+    
    }
 
+  ngAfterViewInit(){
+    if (this.getAvailableMenu().length == 1){
+      this.toggle();
+    }
+  }
+
   ngOnInit() {
+    this.selectRoute(this.getAvailableMenu()[0].path);
   }
 
   selectRoute(path) {

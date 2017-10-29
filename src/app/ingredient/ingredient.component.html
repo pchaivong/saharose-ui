@@ -10,42 +10,14 @@
     </md-card-title>
 
     <md-card-content>
-        <div class="mat-elevation-z0">
-            <md-table #table [(dataSource)]="dataSource">
-          
-              <!-- Column: Category Name column -->
-              <ng-container mdColumnDef="name">
-                <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
-                <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
-              </ng-container>
-          
-              <!-- Column: Category Name -->
-              <ng-container mdColumnDef="catName">
-                <md-header-cell *mdHeaderCellDef>Category </md-header-cell>
-                <md-cell *mdCellDef="let row"> {{getCategoryNameById(row.categoryId)}}</md-cell>
-              </ng-container>
-
-              <!-- Column: Price -->
-              <ng-container mdColumnDef="price">
-                <md-header-cell *mdHeaderCellDef>Price</md-header-cell>
-                <md-cell *mdCellDef="let row"><span>฿</span>{{row.price}}</md-cell>
-              </ng-container>
-  
-              <!-- Column: Actions -->
-              <ng-container mdColumnDef="actions">
-                  <md-header-cell *mdHeaderCellDef>Actions </md-header-cell>
-                  <md-cell *mdCellDef="let row">
-                    <button md-icon-button (click)="removeIngredient(row)">
-                        <md-icon>delete</md-icon>
-                    </button>
-                  </md-cell>
-                </ng-container>
-          
-              <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-              <md-row *mdRowDef="let row; columns: displayedColumns;" (click)="openEditIngredientDialog(row)"></md-row>
-            </md-table>
-            
-          </div>
+       <md-tab-group class="ingredient-tab-group">
+         <md-tab *ngFor="let cat of categories; let i = index" [label]="cat.name">
+           <app-ingredient-view 
+              [ingredients]="ingredients[i]"
+              (onSelected)="openEditIngredientDialog($event)"
+              (onDelete)="removeIngredient($event)"></app-ingredient-view>
+         </md-tab>
+       </md-tab-group>
     </md-card-content>
   
   

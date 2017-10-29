@@ -1,57 +1,67 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+
+import { environment } from '../../environments/environment';
 
 
 
 @Injectable()
 export class CategoryService {
 
-  constructor() { }
+  private apiUrl: string = environment.apiEndpoint + '/categories';
+  constructor(private http: Http) { }
 
-  listCategories(): Observable<CategoryData[]> {
-    // TODO: this is just mock
-    return Observable.of(mockData);
+  getCategoryList(): Observable<CategoryItem[]>{
+    return this.http.get(this.apiUrl)
+              .map((res: Response) => {
+                return res.json().map(item => {
+                  return new CategoryItem(
+                    item.id,
+                    item.name,
+                    item["menu-items"],
+                    item["ingredient-items"],
+                    item["kitchen-enabled"]
+                  );
+                });
+              });
   }
 
-  addCategory(cat: CategoryData) {
-    cat.id = mockNextId;
-    mockNextId++;
-    mockData.push(cat);
-    console.log(cat.name + " added");
+  addCategory(cat: CategoryItem): Observable<Response> {
+    console.debug("Add Category");
+    console.debug(cat);
+    return this.http.post(this.apiUrl, cat)
   }
 
-  update(cat: CategoryData) {
-    mockData.forEach((v, i) => {
-      if (v.id == cat.id){
-        mockData[i] = Object.assign({}, cat);
-      }
-    });
+  update(cat: CategoryItem): Observable<Response> {
+    return this.http.put(this.apiUrl+'/'+cat.id, cat)
   }
 
-  remove(category: CategoryData){
-    // For mock
-    console.log("Remove category id: " + category.id);
-    mockData.forEach((v, i) => {
-      if (v.id == category.id) {
-        mockData.splice(i, 1);
-      }
-    });
-
-    // TODO: REST call implementation HERE
+  remove(category: CategoryItem): Observable<Response>{
+    console.debug("Delete category");
+    console.debug("CategoryId: " + category.id);
+    let removedId = category.id;
+    return this.http.delete(this.apiUrl + '/' + removedId)
   }
 }
 
-let mockData: CategoryData[] = [
-  {id: 1, name: 'อาหาร', numItems: 3, kittenEnabled: true},
-  {id: 2, name: 'เครื่องดื่ม', numItems: 4, kittenEnabled: false}
-];
-
-let mockNextId: number = 3;
-
+// TODO: Removed
 export interface CategoryData {
   id: number,
   name: string,
-  numItems : number,
+  menuItems : number,
+  ingredientItems: number,
   kittenEnabled: boolean
+}
+
+export class CategoryItem {
+  constructor(
+    public id: number,
+    public name: string,
+    public menuItems: number,
+    public ingredientItems: number,
+    public kitchen_enabled: boolean
+  ) {}
 }

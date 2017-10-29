@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HttpModule, Http } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ToolBarComponent } from './tool-bar/tool-bar.component';
@@ -25,6 +26,7 @@ import { MdToolbarModule,
          MdChipsModule,
          MdFormFieldModule,
          MdMenuModule,
+         MdSnackBarModule,
                           } from '@angular/material';
 import { CookViewComponent } from './cook-view/cook-view.component';
 import { CategoryComponent } from './category/category.component';
@@ -49,6 +51,8 @@ import { LoginComponent } from './login/login.component';
 import { UserAvatarComponent } from './user-avatar/user-avatar.component';
 import { OrderDetailItemComponent } from './order/order-detail-item/order-detail-item.component';
 import { OrderDetailListComponent } from './order/order-detail-list/order-detail-list.component';
+import { ReportComponent } from './report/report.component';
+import { IngredientViewComponent } from './ingredient/ingredient-view/ingredient-view.component';
 
 @NgModule({
   declarations: [
@@ -71,11 +75,14 @@ import { OrderDetailListComponent } from './order/order-detail-list/order-detail
     LoginComponent,
     UserAvatarComponent,
     OrderDetailItemComponent,
-    OrderDetailListComponent
+    OrderDetailListComponent,
+    ReportComponent,
+    IngredientViewComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpModule,
     MdToolbarModule,
     MdTableModule,
     MatCardModule,
@@ -95,6 +102,7 @@ import { OrderDetailListComponent } from './order/order-detail-list/order-detail
     MdChipsModule,
     MdFormFieldModule,
     MdMenuModule,
+    MdSnackBarModule,
 
     RouterModule.forRoot([
       {
@@ -112,7 +120,15 @@ import { OrderDetailListComponent } from './order/order-detail-list/order-detail
       {
         path: 'configuration',
         component: ConfigurationComponent
-      }
+      },
+      {
+        path: 'cooking',
+        component: CookViewComponent
+      },
+      {
+        path: 'report',
+        component: ReportComponent
+      },
     ]),
   ],
   providers: [

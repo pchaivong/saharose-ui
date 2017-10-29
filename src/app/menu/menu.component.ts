@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MenuService, MenuData, SizeData } from '../services/menu.service';
 import { IngredientService, IngredientData } from '../services/ingredient.service';
-import { CategoryService, CategoryData } from '../services/category.service';
+import { CategoryService, CategoryData, CategoryItem } from '../services/category.service';
 import { MdDialogRef, MdDialog, MD_DIALOG_DATA , MdSlideToggleChange } from '@angular/material';
 
 
@@ -14,14 +14,14 @@ export class MenuComponent implements OnInit {
 
   displayedColumns = ['name', 'category', 'price', 'actions'];
   public dataSource;
-  categories: CategoryData[];
+  categories: CategoryItem[];
 
   constructor(private menuService: MenuService,
               private ingredientService: IngredientService,
               private categoryService: CategoryService,
               public dialog: MdDialog) { 
     this.dataSource = menuService.dataSource;
-    categoryService.listCategories().subscribe(data => { this.categories = data; });
+    categoryService.getCategoryList().subscribe(data => { this.categories = data; });
   }
 
   ngOnInit() {
@@ -37,10 +37,7 @@ export class MenuComponent implements OnInit {
   }
 
   getCategoryName(id: number){
-    return this.categories.filter(v => {
-      return v.id == id;
-    })
-    .map(v => v.name);
+    return "test";
   }
 
   openAddMenuDialog(){
@@ -66,7 +63,7 @@ export class MenuComponent implements OnInit {
 export class DialogAddMenu {
 
   ingredients: IngredientData[];
-  categories: CategoryData[];
+  categories: CategoryItem[];
   sizes: SizeData[] = [];
 
   menuName: string;
@@ -89,7 +86,7 @@ export class DialogAddMenu {
       this.ingredients = data;
     });
 
-    categoryService.listCategories().subscribe(data => {
+    categoryService.getCategoryList().subscribe(data => {
       this.categories = data;
     });
   }
