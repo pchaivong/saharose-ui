@@ -1,5 +1,5 @@
-<div class="container">
-  <md-card class="flex-item menu-card">
+<md-card class="flex-item menu-card">
+  
       <md-card-title>
         <md-toolbar style="border-radius: 5px 5px 5px 5px; background-color: #01579B; padding: 0;">
           <div style="width: 100%; padding: 25px;">Menu</div>
@@ -8,45 +8,18 @@
           </button>
         </md-toolbar>  
       </md-card-title>
-
+  
       <md-card-content>
-          <div class="mat-elevation-z0">
-              <md-table #table [(dataSource)]="dataSource">
-            
-                <!-- Column: Category Name column -->
-                <ng-container mdColumnDef="name">
-                  <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
-                  <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
-                </ng-container>
-            
-                <!-- Column: Number of items in category -->
-                <ng-container mdColumnDef="category">
-                  <md-header-cell *mdHeaderCellDef>Category</md-header-cell>
-                  <md-cell *mdCellDef="let row"> {{getCategoryName(row.categoryId)}}</md-cell>
-                </ng-container>
-                <ng-container mdColumnDef="price">
-                  <md-header-cell *mdHeaderCellDef>Price </md-header-cell>
-                  <md-cell *mdCellDef="let row"> {{row.price}}</md-cell>
-                </ng-container>
-                <ng-container mdColumnDef="actions">
-                  <md-header-cell *mdHeaderCellDef>Actions</md-header-cell>
-                  <md-cell *mdCellDef="let row">
-                    <button md-icon-button (click)="removeMenu(row)">
-                      <md-icon>delete</md-icon>
-                    </button>
-                  </md-cell>
-                </ng-container>
-            
-                <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-                <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
-              </md-table>
-
-            </div>
+         <md-tab-group class="menu-tab-group">
+           <md-tab *ngFor="let cat of categories; let i = index" [label]="cat.name">
+             <app-menu-view 
+                [menus]="menus[i]"
+                (onDelete)="removeMenu($event)"></app-menu-view>
+           </md-tab>
+         </md-tab-group>
       </md-card-content>
+    
+    
       <md-card-footer>
-
       </md-card-footer>
-  </md-card>
-</div>
-  
-  
+    </md-card>

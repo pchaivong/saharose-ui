@@ -1,17 +1,39 @@
 import { Injectable } from '@angular/core';
-
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { DataSource } from '@angular/cdk/collections';
 import { IngredientData } from './ingredient.service';
 
 import 'rxjs/add/observable/of';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class MenuService {
 
   dataSource = new MenuDataSource(this);
 
-  constructor() { }
+  constructor(private http: Http) { }
+
+  getMenuList(categoryId: number): Observable<MenuItem[]>{
+    let apiUrl = environment.apiEndpoint + '/categories/' + categoryId + '/menus';
+    return this.http.get(apiUrl)
+            .map((resp: Response) => {
+              return resp.json().map(item => {
+                return new MenuItem(item.id, item.name);
+              });
+            });
+  }
+
+  addMenu(menu: MenuItem, categoryId: number): Observable<Response>{
+    let apiUrl = environment.apiEndpoint + '/categories/' + categoryId + '/menus';
+    return this.http.post(apiUrl, menu);
+  }
+
+  removeMenu(menu: MenuItem): Observable<Response>{
+    let apiUrl = environment.apiEndpoint + '/menus/' + menu.id;
+    return this.http.delete(apiUrl);
+  }
 
   add(menu: MenuData){
     this.addMock(menu);
@@ -84,6 +106,14 @@ export interface MenuData{
 export interface SizeData {
   name: string,
   price: number
+}
+
+export class MenuItem {
+  constructor(
+    public id: number,
+    public name: string,
+  //  sizes: SizeData
+  ){}
 }
 
 // Mockup stuff

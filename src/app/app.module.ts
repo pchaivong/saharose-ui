@@ -53,6 +53,7 @@ import { OrderDetailItemComponent } from './order/order-detail-item/order-detail
 import { OrderDetailListComponent } from './order/order-detail-list/order-detail-list.component';
 import { ReportComponent } from './report/report.component';
 import { IngredientViewComponent } from './ingredient/ingredient-view/ingredient-view.component';
+import { MenuViewComponent } from './menu/menu-view/menu-view.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { IngredientViewComponent } from './ingredient/ingredient-view/ingredient
     OrderDetailItemComponent,
     OrderDetailListComponent,
     ReportComponent,
-    IngredientViewComponent
+    IngredientViewComponent,
+    MenuViewComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,12 @@
         (onCreate)="createIngredient($event)"></app-ingredient>
     </md-tab>
     <md-tab label="Menu">
-      <app-menu></app-menu>
+      <app-menu
+        [categories]="categories"
+        [menus]="menus"
+        (onDelete)="removeMenu($event)"
+        (onCreate)="createMenu($event)"
+      ></app-menu>
     </md-tab>
   </md-tab-group>
 </div>

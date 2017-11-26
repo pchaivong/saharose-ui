@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { CategoryService, CategoryItem } from '../services/category.service';
 import { IngredientService, IngredientItem } from '../services/ingredient.service';
-import { MenuService } from '../services/menu.service';
+import { MenuService, MenuItem } from '../services/menu.service';
 import { MdSnackBar } from '@angular/material';
 
 
@@ -14,6 +14,7 @@ export class ConfigurationComponent implements OnInit, OnChanges {
 
   public categories: CategoryItem[];
   public ingredients: CategoryIngredientItem[];
+  public menus: CategoryMenuItem[];
 
   constructor(
     public snackBar: MdSnackBar,
@@ -83,6 +84,7 @@ export class ConfigurationComponent implements OnInit, OnChanges {
     .subscribe(res => {
       if (res.status == 201){
         this.initIngredients();
+        this.reloadCategories();
         this.snackBar.open("Ingredient \"" + item.name + "\" created.",
           "OK", {duration: 2000});
       }
@@ -97,6 +99,7 @@ export class ConfigurationComponent implements OnInit, OnChanges {
     .subscribe(res => {
       if (res.status == 204){
         this.initIngredients();
+        this.reloadCategories();
         this.snackBar.open("Ingredient \"" + item.name + "\" removed.",
             "OK", {duration: 2000});
       }
@@ -109,10 +112,43 @@ export class ConfigurationComponent implements OnInit, OnChanges {
   updateIngredient(item: IngredientItem){
     this.ingredientService.updateIngredient(item)
     .subscribe(res => {
-      if (res.status == 204){
+      if (res.status == 200){
         this.initIngredients();
         this.snackBar.open("Ingredient \"" + item.name + "\" updated.",
             "OK", {duration: 2000});
+      }
+    });
+  }
+
+  /**
+   * Menu: Create new menu
+   */
+  createMenu(e: any){
+    let item: MenuItem = e.item;
+    let categoryId: number = e.categoryId;
+
+    this.menuService.addMenu(item, categoryId)
+    .subscribe(res => {
+      if (res.status == 201){
+        this.initMenus();
+        this.reloadCategories();
+        this.snackBar.open("Menu \"" + item.name + "\" is created",
+        "OK", {duration: 2000});
+      }
+    });
+  }
+
+  /**
+   * Menu: Remove menu
+   */
+  removeMenu(item: MenuItem){
+    this.menuService.removeMenu(item)
+    .subscribe(res => {
+      if (res.status == 204){
+        this.initMenus();
+        this.reloadCategories();
+        this.snackBar.open("Menu \"" + item.name + "\" is removed",
+        "OK", {duration: 2000});
       }
     });
   }
@@ -140,6 +176,7 @@ export class ConfigurationComponent implements OnInit, OnChanges {
     .subscribe((data: CategoryItem[]) => {
       this.categories = data;
       this.initIngredients();
+      this.initMenus();
     });
   }
 
@@ -169,6 +206,18 @@ export class ConfigurationComponent implements OnInit, OnChanges {
       });
     });
   }
+
+  private initMenus(){
+    this.menus = [];
+    this.categories.forEach(v => {
+      this.menuService.getMenuList(v.id)
+      .subscribe((data: MenuItem[]) => {
+        this.menus.push({category: v, menus: data});
+      })
+    })
+  }
+
+
 }
 
 /**
@@ -178,4 +227,9 @@ export class ConfigurationComponent implements OnInit, OnChanges {
 export interface CategoryIngredientItem {
   category: CategoryItem,
   ingredients: IngredientItem[]
+}
+
+export interface CategoryMenuItem {
+  category: CategoryItem,
+  menus: MenuItem[]
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MenuService, MenuData, SizeData } from '../services/menu.service';
+import { Component, OnInit, OnChanges, Inject, Input, Output, EventEmitter } from '@angular/core';
+import { MenuService, MenuData, SizeData, MenuItem } from '../services/menu.service';
 import { IngredientService, IngredientData } from '../services/ingredient.service';
 import { CategoryService, CategoryData, CategoryItem } from '../services/category.service';
+import { CategoryMenuItem } from '../configuration/configuration.component';
+
 import { MdDialogRef, MdDialog, MD_DIALOG_DATA , MdSlideToggleChange } from '@angular/material';
 
 
@@ -10,45 +12,43 @@ import { MdDialogRef, MdDialog, MD_DIALOG_DATA , MdSlideToggleChange } from '@an
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnChanges {
 
-  displayedColumns = ['name', 'category', 'price', 'actions'];
-  public dataSource;
-  categories: CategoryItem[];
+  @Input('categories')
+  public categories: CategoryItem[];
+
+  @Input('menus')
+  public menus: CategoryMenuItem[];
+
+  @Output()
+  onDelete: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
+
+  @Output()
+  onCreate: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private menuService: MenuService,
-              private ingredientService: IngredientService,
-              private categoryService: CategoryService,
-              public dialog: MdDialog) { 
-    this.dataSource = menuService.dataSource;
-    categoryService.getCategoryList().subscribe(data => { this.categories = data; });
+              public dialog: MdDialog){}
+
+  ngOnInit(){}
+
+  ngOnChanges(){}
+
+  removeMenu(menu: MenuItem){
+    this.onDelete.emit(menu);
   }
 
-  ngOnInit() {
-  }
 
-  addMenu(menu: MenuData){
-    this.menuService.add(menu);
-  }
-
-  removeMenu(menu: MenuData){
-    this.menuService.remove(menu);
-    this.dataSource = this.menuService.refresh();
-  }
-
-  getCategoryName(id: number){
-    return "test";
-  }
-
+  // Open add menu dialog
   openAddMenuDialog(){
     let dialogRef = this.dialog.open(DialogAddMenu, {
       width: '50%',
-      data: {}
+      data: this.categories
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.dataSource = this.menuService.refresh();
+      if (result){
+        this.onCreate.emit({item: result.menu, categoryId: result.categoryId});
+      }
     })
   }
 
@@ -96,17 +96,15 @@ export class DialogAddMenu {
   }
 
   addMenu(){
-    let data = {
-      id: 0, 
+    let item = {
       name: this.menuName,
-      size: this.sizes,
-      categoryId: this.menuCat,
-      ingredients: this.menuIngredients,
-      addOn: this.menuAddOns
+      sizes: this.sizes,
+      ingredients: []
     };
 
-    this.menuService.add(data);
-    this.dialogRef.close();
+    let data = {menu: item, categoryId: this.menuCat};
+    console.log(data);
+    this.dialogRef.close(data);
   }
 
   // Event handlers
